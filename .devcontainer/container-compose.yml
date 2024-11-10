@@ -1,0 +1,18 @@
+services:
+  plugin:
+    image: imbios/bun-node:20-alpine
+    command: tail -f /dev/null
+    environment:
+      PODMAN_USERNS: "keep-id"
+      PODMAN_COMPOSE_PROVIDER: "podman-compose"
+    volumes:
+      - ..:/workspace:delegated
+      - ~/.ssh:/root/.ssh:cached
+      - type: volume
+        source: esbuild-plugin-external-dependency-manifest
+        target: /root
+        volume:
+          nocopy: false
+
+volumes:
+  esbuild-plugin-external-dependency-manifest:
