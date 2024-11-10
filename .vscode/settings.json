@@ -1,0 +1,4 @@
+{
+  "docker.dockerPath": "podman",
+  "docker.composeCommand": "podman-compose"
+}
