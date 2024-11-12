@@ -1,0 +1,24 @@
+{
+  "name": "@external-manifest/tools-bundle",
+  "type": "module",
+  "typings": "./dist/esbuild.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esbuild.d.ts",
+      "import": "./dist/esbuild.mjs",
+      "require": "./dist/esbuild.cjs"
+    },
+    "./package.json": "./package.json",
+    "./bundle": "./src/esbuild.ts"
+  },
+  "dependencies": {
+    "esbuild": "0.24.0",
+    "@external-manifest/tools-bundle": "workspace:*"
+  },
+  "devDependencies": {
+    "@external-manifest/typescript-config": "workspace:*"
+  },
+  "scripts": {
+    "nx:build": "bun run src/esbuild.ts"
+  }
+}

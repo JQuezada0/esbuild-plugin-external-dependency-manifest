@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "defaultBase": "master",
+  "namedInputs": {
+    "typescript": [
+      "{projectRoot}/**/*.ts"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/build.yml"
+    ],
+    "default": [
+      "sharedGlobals"
+    ]
+  },
+  "targetDefaults": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "typescript"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/**/*.d.ts",
+        "{projectRoot}/dist/tsbuildinfo"
+      ],
+      "dependsOn": [
+        "^typecheck"
+      ],
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "tsc -p tsconfig.json"
+      }
+    }
+  }
+}

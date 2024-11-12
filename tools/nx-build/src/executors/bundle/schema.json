@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "package": {
+      "type": "string",
+      "description": "The name of the package to bundle"
+    },
+    "entryPoint": {
+      "type": "string",
+      "description": "A resolvable module name to use as the entry point for bundling"
+    }
+  }
+}

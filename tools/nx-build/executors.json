@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "bundle": {
+      "implementation": "./dist/cjs/executors/bundle/executor.js",
+      "schema": "./src/executors/bundle/schema.json",
+      "description": "Bundle using a given entrypoint."
+    }
+  }
+}

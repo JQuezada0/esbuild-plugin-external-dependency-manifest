@@ -1,0 +1,22 @@
+{
+  "name": "@external-manifest/esbuild-plugin",
+  "module": "index.ts",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@external-manifest/tools-nx-build": "workspace:*",
+    "@types/bun": "1.1.13",
+    "@types/node": "22.9.0",
+    "esbuild": "0.24.0",
+    "nx": "20.0.12",
+    "read-package-up": "11.0.0",
+    "typescript": "5.6.3"
+  },
+  "scripts": {
+    "nx:build": "bun run ./build/esbuild.ts",
+    "build": "nx build"
+  }
+}

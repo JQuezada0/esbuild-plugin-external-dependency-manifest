@@ -1,4 +1,5 @@
 {
   "docker.dockerPath": "podman",
-  "docker.composeCommand": "podman-compose"
+  "docker.composeCommand": "podman-compose",
+  "eslint.validate": ["json"]
 }

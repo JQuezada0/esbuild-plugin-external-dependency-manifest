@@ -1,0 +1,8 @@
+{
+  "extends": "@external-manifest/typescript-config",
+  "include": ["./src/**/*.ts"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/tsbuildinfo"
+  }
+}
