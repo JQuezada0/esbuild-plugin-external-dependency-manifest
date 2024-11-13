@@ -2,6 +2,13 @@
   "name": "@external-manifest/esbuild-plugin",
   "module": "index.ts",
   "type": "module",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/JQuezada0/esbuild-plugin-external-dependency-manifest"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": "./src/index.ts"
