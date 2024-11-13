@@ -9,10 +9,14 @@
         "command": "bun run src/esbuild.ts"
       },
       "inputs": [
-        "{projectRoot}/src"
+        "standard",
+        "^standard"
       ],
       "outputs": [
-        "{projectRoot}/dist"
+        "{projectRoot}/dist/**"
+      ],
+      "dependsOn": [
+        "^build"
       ],
       "cache": true
     },

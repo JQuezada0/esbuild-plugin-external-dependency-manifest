@@ -36,6 +36,8 @@ type BuildInput = {
 async function buildESM(input: BuildInput): Promise<ESBuild.BuildResult> {
   const { entrypointFilePath, packageRoot, outFileName, outPath } = input
 
+  const cjsShim = await commonJSShim()
+
   return ESBuild.build({
     entryPoints: [{
       in: entrypointFilePath,
@@ -44,14 +46,19 @@ async function buildESM(input: BuildInput): Promise<ESBuild.BuildResult> {
     outExtension: {
       ".js": ".mjs"
     },
+    bundle: true,
     outdir: outPath,
     absWorkingDir: packageRoot,
     format: "esm",
     platform: "node",
     target: "es2022",
     treeShaking: true,
-    splitting: true,
+    splitting: false,
     write: false,
+    external: ["esbuild"],
+    banner: {
+      "js": cjsShim.code
+    }
   })
 }
 
@@ -66,6 +73,7 @@ async function buildCJS(input: BuildInput): Promise<ESBuild.BuildResult> {
     outExtension: {
       ".js": ".cjs"
     },
+    bundle: true,
     outdir: outPath,
     absWorkingDir: packageRoot,
     format: "cjs",
@@ -73,11 +81,13 @@ async function buildCJS(input: BuildInput): Promise<ESBuild.BuildResult> {
     target: "es2022",
     metafile: true,
     write: false,
+    external: ["esbuild"],
+    inject: [await moduleResolveShim()],
     plugins: [ 
       {
       name: "resolve-transform",
       setup(build) {
-        build.onLoad({ filter: /tools\/bundle\/src.*\.ts$/ }, async (args) => {
+        build.onLoad({ filter: /.*/ }, async (args) => {
           // Skip files in `node_modules`
           if (args.path.includes("node_modules")) {
             return;
@@ -87,8 +97,7 @@ async function buildCJS(input: BuildInput): Promise<ESBuild.BuildResult> {
           const Fs = await import("node:fs/promises");
           let contents = await Fs.readFile(args.path, "utf8");
   
-          // Transform `import.meta.resolve` to `require.resolve`
-          contents = contents.replace(/\bimport\.meta\.resolve\b/g, "require.resolve");
+          contents = contents.replaceAll("import.meta.url", "__filename");
   
           return {
             contents,
@@ -145,4 +154,43 @@ if (require.main === module) {
     await Fs.writeFile(cjsOutput.outputFiles![0].path, cjsOutput.outputFiles![0].contents)
     await Fs.writeFile(esmOutput.outputFiles![0].path, esmOutput.outputFiles![0].contents)
   })()
+}
+
+/**
+ * Make sure `require`, `__dirname`, and `__filename` are available in the esm output
+ */
+async function commonJSShim() {
+  const NodeUrl = await import("node:url")
+  const NodePath = await import("node:path")
+  const Fs = await import("node:fs/promises")
+
+  const currentUrl = import.meta.resolve("@external-manifest/tools-bundle/package.json")
+  const currentPath = URL.canParse(currentUrl) ? NodeUrl.fileURLToPath(currentUrl) : currentUrl
+
+  const shimUrl = import.meta.resolve(NodePath.join(NodePath.dirname(currentPath), "src", "shims", "commonjs.ts"))
+
+  const shimPath = URL.canParse(shimUrl) ? NodeUrl.fileURLToPath(shimUrl) : shimUrl
+  const shimContents = await Fs.readFile(shimPath, "utf8")
+
+  return ESBuild.transform(shimContents, {
+    loader: "ts",
+    target: "es2022",
+    format: "esm",
+    platform: "node"
+  })
+}
+
+async function moduleResolveShim() {
+  const NodeUrl = await import("node:url")
+  const NodePath = await import("node:path")
+  const Fs = await import("node:fs/promises")
+
+  const currentUrl = import.meta.resolve("@external-manifest/tools-bundle/package.json")
+  const currentPath = URL.canParse(currentUrl) ? NodeUrl.fileURLToPath(currentUrl) : currentUrl
+
+  const shimUrl = import.meta.resolve(NodePath.join(NodePath.dirname(currentPath), "src", "shims", "moduleResolve.ts"))
+
+  const shimPath = URL.canParse(shimUrl) ? NodeUrl.fileURLToPath(shimUrl) : shimUrl
+  
+  return shimPath
 }
