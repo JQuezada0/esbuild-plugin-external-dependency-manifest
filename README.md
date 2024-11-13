@@ -1,15 +1,39 @@
-# esbuild-plugin-external-dependency-manifest
+# External Dependency Manifest
 
-To install dependencies:
+An esbuild plugin that inspects the list of modules marked as `external` and generates a package.json with strictly the
+production dependencies that were resolved during bundling.
 
-```bash
-bun install
+## Example
+
+```typescript
+import * as ESBuild from "esbuild"
+import * as ExternalManifest from "esbuild-plugin-external-manifest"
+
+const buildResult = await ESBuild.build({
+  format: "esm",
+  platform: "node",
+  target: "ES2022",
+  treeShaking: true,
+  bundle: true,
+  entryPoints: [{
+    in: "foo/bar.ts",
+    out: "dist/foo"
+  }],
+  outExtension: {
+    ".js": ".mjs"
+  },
+  external: ["@sentry/serverless"],
+  plugins: [
+    ExternalManifest.plugin(),
+  ]
+})
+
+const buildResultWithExternalsPackageJson = buildResult as ExternalManifest.BuildResultWithExternalManifests
+
+if (buildResultWithExternalsPackageJson.custom) {
+  const { 
+    manifestsByOutputPath, // Record<string, PackageJson>
+    manifests, // Array<{ outputPath: string; manifest: PackageJson }>
+  } = buildResultWithExternalsPackageJson.custom
+}
 ```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.34. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
