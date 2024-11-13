@@ -3,6 +3,9 @@
 An esbuild plugin that inspects the list of modules marked as `external` and generates a package.json with strictly the
 production dependencies that were resolved during bundling.
 
+[![npm version](https://badge.fury.io/js/esbuild-plugin-external-manifest.svg)](https://badge.fury.io/js/esbuild-plugin-external-manifest)
+[![NPM](https://nodei.co/npm/esbuild-plugin-external-manifest.png?mini=true)](https://nodei.co/npm/esbuild-plugin-external-manifest/)
+
 ## Example
 
 ```typescript
