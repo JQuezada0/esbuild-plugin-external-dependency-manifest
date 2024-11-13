@@ -1,0 +1,25 @@
+// See https://containers.dev/implementors/json_reference/ for configuration reference
+{
+  "name": "ESBuild plugin external dependency manifest",
+  "service": "plugin",
+  "dockerComposeFile": "container-compose.yml",
+  "workspaceFolder": "/workspace",
+  "remoteEnv": {
+    "PODMAN_COMPOSE_PROVIDER": "podman-compose"
+  },
+  "features": {
+    "ghcr.io/davzucky/devcontainers-features-wolfi/bash:1": {},
+    "ghcr.io/cirolosapio/devcontainers-features/alpine-starship:0": {},
+    "ghcr.io/cirolosapio/devcontainers-features/alpine-ohmyzsh:0": {},
+    "ghcr.io/cirolosapio/devcontainers-features/alpine-openssh:0": {},
+    "ghcr.io/cirolosapio/devcontainers-features/alpine-gpg:0": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": { "zsh": { "path": "/bin/zsh" } }
+      }
+    }
+  }
+}
