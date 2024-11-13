@@ -1,0 +1,9 @@
+node_modules/
+build/
+
+!dist/
+dist/tsbuildinfo
+src/
+test/
+project.json
+tsconfig.json
