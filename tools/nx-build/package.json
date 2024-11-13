@@ -4,7 +4,8 @@
   "private": true,
   "type": "commonjs",
   "dependencies": {
-    "@external-manifest/tools-bundle": "workspace:*"
+    "@external-manifest/tools-bundle": "workspace:*",
+    "@external-manifest/workspace-tools": "workspace:*"
   },
   "executors": "./executors.json",
   "scripts": {

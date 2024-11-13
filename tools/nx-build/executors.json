@@ -4,6 +4,11 @@
       "implementation": "./dist/cjs/executors/bundle/executor.js",
       "schema": "./src/executors/bundle/schema.json",
       "description": "Bundle using a given entrypoint."
+    },
+    "release": {
+      "implementation": "./dist/cjs/executors/release/executor.js",
+      "schema": "./src/executors/release/schema.json",
+      "description": "Publish an npm package under a different name."
     }
   }
 }
