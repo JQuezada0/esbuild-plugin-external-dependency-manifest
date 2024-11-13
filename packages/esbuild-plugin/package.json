@@ -2,16 +2,19 @@
   "name": "@external-manifest/esbuild-plugin",
   "module": "index.ts",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "url": "https://github.com/JQuezada0/esbuild-plugin-external-dependency-manifest"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
+  "typings": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./bundle": "./src/index.ts"
   },
   "devDependencies": {
     "@external-manifest/tools-nx-build": "workspace:*",
