@@ -2,14 +2,16 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "defaultBase": "master",
   "namedInputs": {
-    "typescript": [
-      "{projectRoot}/**/*.ts"
-    ],
     "sharedGlobals": [
       "{workspaceRoot}/.github/workflows/build.yml"
     ],
-    "default": [
+    "standard": [
+      "{projectRoot}/**/*",
       "sharedGlobals"
+    ],
+    "typescript": [
+      "{projectRoot}/**/*.ts",
+      "{projectRoot}/tsconfig.json"
     ]
   },
   "targetDefaults": {
@@ -30,6 +32,27 @@
         "cwd": "{projectRoot}",
         "command": "tsc -p tsconfig.json"
       }
+    },
+    "build": {
+      "executor": "@external-manifest/tools-nx-build:bundle",
+      "options": {
+        "package": "{projectName}",
+        "entryPointModule": "{projectName}/bundle"
+      },
+      "cache": true,
+      "inputs": [
+        "standard",
+        "^standard"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/**"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
     }
-  }
+  },
+  "plugins": [
+    "nx/plugins/package-json"
+  ]
 }
