@@ -26,4 +26,4 @@ jobs:
       - run: bun install --no-cache
       - uses: nrwl/nx-set-shas@v4
 
-      - run: bun nx affected -t build typecheck
+      - run: bun nx affected -t build typecheck --base=master --head=HEAD
