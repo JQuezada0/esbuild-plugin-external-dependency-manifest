@@ -6,8 +6,8 @@
     "./package.json": "./package.json"
   },
   "workspaces": [
-    "packages/*",
-    "tools/*"
+    "packages/**",
+    "tools/**"
   ],
   "devDependencies": {
     "@external-manifest/tools-bundle": "workspace:*",

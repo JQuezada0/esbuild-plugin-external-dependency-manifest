@@ -5,19 +5,30 @@
       "executor": "@external-manifest/tools-nx-build:bundle",
       "options": {
         "package": "@external-manifest/esbuild-plugin",
-        "entryPointModule": "@external-manifest/esbuild-plugin"
+        "entryPointModule": "@external-manifest/esbuild-plugin/bundle"
       },
       "dependsOn": [
         "^build"
       ],
       "inputs": [
-        "{projectRoot}/src/**"
+        "{projectRoot}/src/**/*.ts"
       ],
       "outputs": [
         "{projectRoot}/dist/**"
       ],
       "cache": true
     },
-    "typecheck": {}
+    "typecheck": {},
+    "publish": {
+      "executor": "@external-manifest/tools-nx-build:release",
+      "options": {
+        "packageName": "@external-manifest/esbuild-plugin",
+        "packageNamePublished": "esbuild-plugin-external-manifest"
+      },
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
+    }
   }
 }
