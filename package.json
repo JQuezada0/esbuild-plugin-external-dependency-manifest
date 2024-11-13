@@ -1,0 +1,11 @@
+{
+  "name": "esbuild-plugin-external-dependency-manifest",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
