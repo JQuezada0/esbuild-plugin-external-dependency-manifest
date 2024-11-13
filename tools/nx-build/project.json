@@ -6,10 +6,10 @@
     "build": {
       "executor": "nx:run-commands",
       "inputs": [
-        "{projectRoot}/src"
+        "{projectRoot}/src/**"
       ],
       "outputs": [
-        "{projectRoot}/dist"
+        "{projectRoot}/dist/**"
       ],
       "cache": true,
       "options": {
