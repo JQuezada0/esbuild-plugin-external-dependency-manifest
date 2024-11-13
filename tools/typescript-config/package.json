@@ -1,0 +1,6 @@
+{
+  "name": "@external-manifest/typescript-config",
+  "exports": {
+    ".": "./tsconfig.base.json"
+  }
+}

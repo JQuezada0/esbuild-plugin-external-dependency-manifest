@@ -1,0 +1,23 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "executor": "@external-manifest/tools-nx-build:bundle",
+      "options": {
+        "package": "@external-manifest/esbuild-plugin",
+        "entryPointModule": "@external-manifest/esbuild-plugin"
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "{projectRoot}/src/**"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/**"
+      ],
+      "cache": true
+    },
+    "typecheck": {}
+  }
+}

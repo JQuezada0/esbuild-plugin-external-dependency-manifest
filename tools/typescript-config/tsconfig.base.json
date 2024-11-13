@@ -1,4 +1,6 @@
 {
+  "include": [],
+  "exclude": ["**/node_modules", "**/dist/**/*.ts"],
   "compilerOptions": {
     // Enable latest features
     "lib": ["ESNext", "DOM"],
@@ -9,7 +11,10 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
-    "noEmit": true,
+    "isolatedDeclarations": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "incremental": true,
 
     // Best practices
     "strict": true,
@@ -19,6 +24,7 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
-  }
+    "noPropertyAccessFromIndexSignature": false,
+    "types": ["node"]
+  },
 }

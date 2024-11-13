@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/refs/heads/master/packages/nx/schemas/project-schema.json",
+  "name": "external-manifest",
+  "targets": {
+    "build-project": {
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "typecheck-project": {
+      "dependsOn": [
+        "^typecheck"
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@external-manifest/tools-nx-build",
+  "version": "0.0.1",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@external-manifest/tools-bundle": "workspace:*"
+  },
+  "executors": "./executors.json",
+  "scripts": {
+    "build": "nx build"
+  }
+}

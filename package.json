@@ -1,11 +1,33 @@
 {
-  "name": "esbuild-plugin-external-dependency-manifest",
+  "name": "external-manifest",
   "module": "index.ts",
   "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "exports": {
+    "./package.json": "./package.json"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  }
+  "workspaces": [
+    "packages/*",
+    "tools/*"
+  ],
+  "devDependencies": {
+    "@external-manifest/tools-bundle": "workspace:*",
+    "@external-manifest/tools-nx-build": "workspace:*",
+    "@external-manifest/typescript-config": "workspace:*",
+    "@nx/plugin": "20.0.12",
+    "@swc/cli": "0.5.0",
+    "@swc/core": "1.9.2",
+    "@types/bun": "1.1.13",
+    "@types/node": "22.9.0",
+    "nx": "20.0.12",
+    "typescript": "5.6.3"
+  },
+  "dependencies": {
+    "@external-manifest/esbuild-plugin": "workspace:*"
+  },
+  "scripts": {
+    "build": "nx build-project",
+    "typecheck": "nx typecheck-project",
+    "add-plugin": "nx generate @nx/plugin:plugin"
+  },
+  "nx": {}
 }
